@@ -1,7 +1,7 @@
 ﻿"use strict";
 
-//var connection = new signalR.HubConnectionBuilder().withUrl("http://localhost:44386/chatHub").build();
-var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+var connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:6001/chatHub").build();
+//var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 
 connection.on("ReceiveMessage", function (user, message) {
     var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -12,7 +12,7 @@ connection.on("ReceiveMessage", function (user, message) {
 });
 
 connection.start().catch(function (err) {
-    return console.error(err.toString());
+    return console.log(err.toString());
 });
 
 document.getElementById("sendButton").addEventListener("click", function (event) {

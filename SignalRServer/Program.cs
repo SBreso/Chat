@@ -19,6 +19,7 @@ namespace SignalRServer
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+            .UseUrls("http://*:6000", "https://*:6001")
                 .UseStartup<Startup>();
     }
 }

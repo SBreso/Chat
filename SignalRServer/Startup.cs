@@ -27,13 +27,7 @@ namespace SignalRServer
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddCors(options => options.AddPolicy("CorsPolicy",
-            builder =>
-            {
-                builder.AllowAnyMethod().AllowAnyHeader()
-                       .WithOrigins("https://localhost:58066")
-                       .AllowCredentials();
-            }));
+            services.AddCors();
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
@@ -58,7 +52,13 @@ namespace SignalRServer
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-            app.UseCors("CorsPolicy");
+            app.UseCors(builder =>
+            builder
+            .WithOrigins("https://localhost:5001")
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials()
+            );
             app.UseSignalR(routes =>
             {
                 routes.MapHub<ChatHub>("/chatHub");
